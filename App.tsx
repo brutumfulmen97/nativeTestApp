@@ -5,14 +5,16 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
+  Image,
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
   useColorScheme,
   View,
 } from 'react-native';
@@ -24,6 +26,11 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import Hello from '@/components/Hello';
+import Boxes from '@/components/Boxes';
+import Flag from '@/components/Flag';
+import FlexDirection from '@/components/FlexDirection';
+import LayoutDirection from '@/components/LayoutDirection';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -57,6 +64,11 @@ function Section({children, title}: SectionProps): React.JSX.Element {
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
+  const [count, setCount] = React.useState(0);
+
+  useEffect(() => {
+    console.log('useEffect', count);
+  }, [count]);
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -64,10 +76,68 @@ function App(): React.JSX.Element {
 
   return (
     <SafeAreaView style={backgroundStyle}>
+      <StatusBar />
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
+      <View>
+        <Text>OVO JE KOMPONENETAAAA</Text>
+        <Hello name="World" />
+      </View>
+      <Boxes />
+      <Flag height={100} />
+      <FlexDirection />
+      <LayoutDirection />
+      <View
+        style={{
+          padding: 20,
+        }}>
+        <Text
+          style={{
+            fontSize: 48,
+            color: isDarkMode ? Colors.white : Colors.black,
+            textAlign: 'center',
+          }}>
+          cao sta imaaaaaa????
+        </Text>
+        <TextInput
+          style={{
+            borderColor: 'gray',
+            borderWidth: 1,
+            width: 100,
+            fontSize: 24,
+          }}
+          onChangeText={text => setCount(parseInt(text) || 0)}
+          value={count.toString()}
+          keyboardType="numeric"
+        />
+        <Text>{count}</Text>
+      </View>
+      <ScrollView>
+        <View
+          style={{
+            padding: 20,
+          }}>
+          <Text
+            style={{
+              fontSize: 48,
+              color: isDarkMode ? Colors.white : Colors.black,
+              textAlign: 'center',
+            }}>
+            cao sta ima?
+          </Text>
+        </View>
+        <Image
+          source={{
+            uri: 'https://reactnative.dev/img/tiny_logo.png',
+          }}
+          style={{
+            width: 64,
+            height: 64,
+          }}
+        />
+      </ScrollView>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
